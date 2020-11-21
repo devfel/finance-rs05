@@ -20,11 +20,11 @@ class TransactionsRepository {
   }
 
   public all(): Transaction[] {
-    // TODO
+    return this.transactions;
   }
 
   public getBalance(): Balance {
-    // TODO
+    return { income: 100, outcome: 10, total: 90 };
   }
 
   public create({ title, value, type }: CreateTransactionDTO): Transaction {
