@@ -24,7 +24,29 @@ class TransactionsRepository {
   }
 
   public getBalance(): Balance {
-    return { income: 100, outcome: 10, total: 90 };
+    const allInc = this.transactions.reduce(
+      (accumulator: number, transaction: Transaction) => {
+        if (transaction.type === 'income') {
+          accumulator += transaction.value;
+        }
+        return accumulator;
+      },
+      0,
+    );
+
+    const allOut = this.transactions.reduce(
+      (accumulator: number, transaction: Transaction) => {
+        if (transaction.type === 'outcome') {
+          accumulator += transaction.value;
+        }
+        return accumulator;
+      },
+      0,
+    );
+
+    const totalBalance = allInc - allOut;
+
+    return { income: allInc, outcome: allOut, total: totalBalance };
   }
 
   public create({ title, value, type }: CreateTransactionDTO): Transaction {
